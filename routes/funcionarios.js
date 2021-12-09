@@ -54,5 +54,35 @@ router.get(
                     else res.send(results);
                 })
         });
+        
+    router.patch(
+        '/funcionariosUpdate/:id',
+        (req, res) => {
+            var id = parseInt(req.params.id)
+            var firstName = req.body.FirstName
+            var lastName = req.body.LastName
+            var notes = req.body.Notes
+            connection.query(
+                'update employees set LastName = ?, FirstName = ?, Notes = ? where employeeId = ?',
+                [lastName,firstName,notes,id],
+                (error, results) => {
+                    if (error) res.send(error);
+                    else res.send(results);
+                })
+        });
+        
+    router.delete(
+        '/funcionariosDelete/:id',
+        (req, res) => {
+            var id = parseInt(req.params.id)
+            connection.query(
+                'delete from employees where employeeId = ?',
+                [id],
+                (error, results) => {
+                    if (error) res.send(error);
+                    else res.send(results);
+                })
+        });
+
 
 module.exports = router;
